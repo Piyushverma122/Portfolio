@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Piyush Verma — Full Stack Developer</title>
+  <meta name="description" content="Portfolio of Piyush Verma, a full-stack developer building fast, reliable digital products." />
+
+  <!-- NOTE: For production, self-host these fonts with @font-face instead of a <link>. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="cardnav.css" />
+</head>
+<body>
+
+  <!-- ============ CARD NAV (React Bits → vanilla + GSAP) ============ -->
+  <div class="card-nav-container">
+    <nav class="card-nav" id="cardNav" style="background-color:#14141a">
+      <div class="card-nav-top">
+        <div class="hamburger-menu" id="cardNavHamburger" role="button"
+             aria-label="Open menu" aria-expanded="false" tabindex="0" style="color:#f4f4f2">
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+        </div>
+        <div class="logo-container">
+          <a href="#top" class="logo-word" aria-label="Home">PIYUSH&nbsp;VERMA</a>
+        </div>
+        <a class="card-nav-cta-button"
+           href="https://drive.google.com/file/d/1hNzTaz5Vd_vHeZI0MRxZd1ruhw2KL4iG/view?usp=sharing"
+           target="_blank" rel="noopener"
+           style="background-color:#e3b341;color:#1a1305">Resume</a>
+      </div>
+
+      <div class="card-nav-content" aria-hidden="true">
+        <div class="nav-card" style="background-color:#1B1722;color:#fff">
+          <div class="nav-card-label">Navigate</div>
+          <div class="nav-card-links">
+            <a class="nav-card-link" href="#projects" aria-label="Go to Projects">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>Projects</a>
+            <a class="nav-card-link" href="#experience" aria-label="Go to Experience">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>Experience</a>
+            <a class="nav-card-link" href="#skills" aria-label="Go to Skills">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>Skills</a>
+          </div>
+        </div>
+
+        <div class="nav-card" style="background-color:#221b2a;color:#fff">
+          <div class="nav-card-label">Featured Work</div>
+          <div class="nav-card-links">
+            <a class="nav-card-link" href="#projects" aria-label="Harihar Paathshaala">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>Harihar Paathshaala</a>
+            <a class="nav-card-link" href="#projects" aria-label="Green Paalna">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>Green Paalna</a>
+            <a class="nav-card-link" href="#projects" aria-label="Har Ghar Munga">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>Har Ghar Munga</a>
+          </div>
+        </div>
+
+        <div class="nav-card" style="background-color:#2F293A;color:#fff">
+          <div class="nav-card-label">Connect</div>
+          <div class="nav-card-links">
+            <a class="nav-card-link" href="mailto:rajruchi2013@gmail.com" aria-label="Email Piyush">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>Email</a>
+            <a class="nav-card-link" href="https://github.com/Piyushverma122" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>GitHub</a>
+            <a class="nav-card-link" href="https://www.linkedin.com/in/piyush-verma-855400311/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg class="nav-card-link-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="shell" id="top">
+
+    <main>
+      <!-- ============ HERO PANEL (banner + overlap) ============ -->
+      <section class="panel hero" aria-label="Introduction" data-reveal>
+        <div class="hero__banner">
+          <div class="hero__banner-bg" style="background-image:url('assets/Banner.jpeg')" aria-hidden="true"></div>
+          <div class="hero__banner-glow" aria-hidden="true"></div>
+          <div class="hero__quote">
+            <span class="hero__quote-text">There&rsquo;s <em class="q-em">always</em> more to learn.</span>
+            <span class="q-particle" style="top:16%; right:7%; animation-delay:0s"></span>
+            <span class="q-particle" style="top:72%; right:13%; animation-delay:.8s"></span>
+            <span class="q-particle" style="top:34%; right:32%; animation-delay:1.4s"></span>
+            <span class="q-particle" style="top:82%; right:42%; animation-delay:2s"></span>
+            <span class="q-particle" style="top:10%; right:46%; animation-delay:2.6s"></span>
+            <span class="q-particle" style="top:54%; right:3%; animation-delay:3.2s"></span>
+          </div>
+        </div>
+
+        <div class="hero__body">
+          <div class="hero__head">
+            <div class="hero__pfp">
+              <img src="assets/piyush.png" alt="Portrait of Piyush Verma" loading="eager"
+                   onerror="this.onerror=null;this.src='https://picsum.photos/seed/piyush-verma-developer-portrait/500/500';" />
+            </div>
+
+            <div class="hero__namewrap">
+              <p class="kicker"><span class="decrypt" data-text="PORTFOLIO / 2026" data-delay="0"></span></p>
+              <h1 class="hero__name">
+                <span class="decrypt" data-text="Piyush Verma" data-delay="120"></span>
+                <span class="verified-badge" role="img" aria-label="Verified">
+                  <svg class="verified-badge__shape" viewBox="0 0 22 22">
+                    <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816z" fill="currentColor"></path>
+                  </svg>
+                  <span class="verified-badge__shimmer"></span>
+                  <svg class="verified-badge__check" viewBox="0 0 24 24" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5">
+                    <polyline points="5 12.5 10 17.5 19 7.5"></polyline>
+                  </svg>
+                </span>
+              </h1>
+              <p class="hero__role"><span class="decrypt" data-text="Full-stack developer • React • Flutter • Flask" data-delay="420"></span></p>
+              <p class="hero__mono"><span class="decrypt" data-text="Building digital experiences that matter." data-delay="700"></span></p>
+            </div>
+
+            <div class="hero__actions-col">
+              <div class="otw-row">
+              <span class="otw-wrap">
+                <button class="otw" type="button">
+                  <canvas class="otw__canvas"></canvas>
+                  <span class="otw__content">
+                    <span class="otw__dot"></span>
+                    <span class="otw__label">Open for Opportunities</span>
+                  </span>
+                </button>
+              </span>
+              <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" width="19" height="19" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3.25" fill="currentColor"/>
+                  <g stroke="currentColor" stroke-linecap="round" stroke-width="2">
+                    <path d="M12 2.5v2.5"/><path d="M12 19v2.5"/><path d="M4.22 4.22l1.77 1.77"/><path d="M18.01 18.01l1.77 1.77"/>
+                    <path d="M2.5 12h2.5"/><path d="M19 12h2.5"/><path d="M4.22 19.78l1.77-1.77"/><path d="M18.01 5.99l1.77-1.77"/>
+                  </g>
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                </svg>
+              </button>
+              </div>
+              <div class="social-icons">
+              <a class="icon-btn" href="https://github.com/Piyushverma122" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+                <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              </a>
+              <a class="icon-btn" href="https://www.linkedin.com/in/piyush-verma-855400311/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+                <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a class="icon-btn" href="mailto:rajruchi2013@gmail.com" aria-label="Email" title="Email">
+                <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </a>
+              <!-- Update the X link to your handle when you have one -->
+              <a class="icon-btn" href="https://x.com/" target="_blank" rel="noopener" aria-label="X (Twitter)" title="X">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a class="icon-btn" href="https://drive.google.com/file/d/1hNzTaz5Vd_vHeZI0MRxZd1ruhw2KL4iG/view?usp=sharing" target="_blank" rel="noopener" aria-label="Resume" title="Resume">
+                <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="bento-layout">
+        <!-- ============ ACTIVITY GRAPH PANEL ============ -->
+        <section class="panel github-widget" aria-label="Activity graph" data-reveal>
+          <div class="github-widget__main">
+            <div class="github-widget__header">
+              <h3 class="github-widget__count" id="githubCount">Fetching contributions...</h3>
+              <a class="link-gold" href="https://github.com/Piyushverma122" target="_blank" rel="noopener">view profile ↗</a>
+            </div>
+            
+            <div class="activity" id="activity" aria-hidden="true"></div>
+            
+            <div class="github-widget__footer">
+              <a class="github-widget__learn" href="https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/managing-contribution-graphs-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile" target="_blank" rel="noopener">Learn how we count contributions</a>
+              <div class="github-widget__legend">
+                <span>Less</span>
+                <span class="legend-cell l0"></span>
+                <span class="legend-cell l1"></span>
+                <span class="legend-cell l2"></span>
+                <span class="legend-cell l3"></span>
+                <span class="legend-cell l4"></span>
+                <span>More</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="github-widget__sidebar">
+            <div class="activity__years" id="activityYears"></div>
+          </div>
+        </section>
+
+        <!-- ============ EXPERIENCE PANEL ============ -->
+        <section class="panel" id="experience" aria-label="Experience" data-reveal>
+          <div class="panel__head">
+            <p class="kicker">EXPERIENCE</p>
+          </div>
+
+          <div class="exp-list">
+            <article class="exp">
+              <div class="exp__bar"></div>
+              <div class="exp__body">
+                <div class="exp__top">
+                  <h3 class="exp__role">Platform Operations &amp; Content Moderation Intern</h3>
+                  <span class="exp__date">Jun 2026 — Present · 1 mo</span>
+                </div>
+                <p class="exp__org">Emilo Ventures Private Limited · Full-time · Raipur, India · On-site</p>
+                <p class="exp__desc">Supporting platform operations and software development — building and monitoring features while keeping content quality, compliance, and a smooth user experience.</p>
+                <ul class="exp__points">
+                  <li>Develop and maintain web-application features.</li>
+                  <li>Moderate platform content against community guidelines and company policy.</li>
+                  <li>Review and report inappropriate or policy-violating content.</li>
+                  <li>Support bug fixing, testing, and performance optimization.</li>
+                  <li>Collaborate with developers and operations teams on functionality and UX.</li>
+                  <li>Maintain operational reports and follow SOPs for content review.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">Software Development</span><span class="tag">Web Apps</span><span class="tag">+2 skills</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="exp">
+              <div class="exp__bar"></div>
+              <div class="exp__body">
+                <div class="exp__top">
+                  <h3 class="exp__role">Project Developer — Center of Excellence (COE)</h3>
+                  <span class="exp__date">Jul 2025 — Present · 1 yr</span>
+                </div>
+                <p class="exp__org">COE, SSIPMT Raipur · Part-time · Raipur, India · On-site</p>
+                <p class="exp__desc">Project developer and student mentor building SaaS apps and software projects assigned by the college.</p>
+                <ul class="exp__points">
+                  <li>Designed, developed, tested, and deployed web &amp; mobile applications.</li>
+                  <li>Mentored junior students in development and project implementation.</li>
+                  <li>Collaborated with faculty and student teams on real-world projects.</li>
+                  <li>Built government-related digital solutions and institutional software.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">React Native</span><span class="tag">React.js</span><span class="tag">+1 skill</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="exp">
+              <div class="exp__bar"></div>
+              <div class="exp__body">
+                <div class="exp__top">
+                  <h3 class="exp__role">Development Specialist</h3>
+                  <span class="exp__date">Jul 2025 — Aug 2025 · 2 mos</span>
+                </div>
+                <p class="exp__org">Skyvo Technologies · Internship · India · Hybrid</p>
+                <p class="exp__desc">Completed full-stack web-development training with version control in VS Code and Git.</p>
+                <ul class="exp__points">
+                  <li>Built and deployed web apps with Bootstrap, Angular, Node.js &amp; MySQL.</li>
+                  <li>Focused on responsive UI, backend integration, and database management.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">Angular</span><span class="tag">Node.js</span><span class="tag">MySQL</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ============ SKILLS PANEL ============ -->
+        <section class="panel" id="skills" aria-label="Skills" data-reveal>
+          <div class="panel__head">
+            <p class="kicker">SKILLS</p>
+          </div>
+
+          <div class="skill-grid">
+            <div class="skill-cell">
+              <h3 class="skill-cell__title">Languages</h3>
+              <div class="tags">
+                <span class="skill-tag" style="--hover-border: #00599c; --hover-bg: rgba(0, 89, 156, 0.1); --hover-text: #5da5da;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="" />
+                  C / C++
+                </span>
+                <span class="skill-tag" style="--hover-border: #3776ab; --hover-bg: rgba(55, 118, 171, 0.1); --hover-text: #4b8bbe;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" />
+                  Python
+                </span>
+                <span class="skill-tag" style="--hover-border: #f89820; --hover-bg: rgba(248, 152, 32, 0.1); --hover-text: #f89820;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" />
+                  Java
+                </span>
+                <span class="skill-tag" style="--hover-border: #336791; --hover-bg: rgba(51, 103, 145, 0.1); --hover-text: #336791;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="" />
+                  SQL
+                </span>
+                <span class="skill-tag" style="--hover-border: #61dafb; --hover-bg: rgba(97, 218, 251, 0.1); --hover-text: #61dafb;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="" />
+                  React
+                </span>
+                <span class="skill-tag" style="--hover-border: #02569b; --hover-bg: rgba(2, 86, 155, 0.1); --hover-text: #45d1fd;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="" />
+                  Flutter
+                </span>
+                <span class="skill-tag" style="--hover-border: #dd0031; --hover-bg: rgba(221, 0, 49, 0.1); --hover-text: #dd0031;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="" />
+                  Angular
+                </span>
+              </div>
+            </div>
+            
+            <div class="skill-cell">
+              <h3 class="skill-cell__title">Tools &amp; Tech</h3>
+              <div class="tags">
+                <span class="skill-tag" style="--hover-border: var(--skill-white-hover); --hover-bg: var(--skill-white-hover-bg); --hover-text: var(--skill-white-hover);">
+                  <img class="skill-logo logo-invert" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="" />
+                  Git / GitHub
+                </span>
+                <span class="skill-tag" style="--hover-border: #68a063; --hover-bg: rgba(104, 160, 99, 0.1); --hover-text: #68a063;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="" />
+                  Node.js
+                </span>
+                <span class="skill-tag" style="--hover-border: var(--skill-white-hover); --hover-bg: var(--skill-white-hover-bg); --hover-text: var(--skill-white-hover);">
+                  <img class="skill-logo logo-invert" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="" />
+                  Flask
+                </span>
+                <span class="skill-tag" style="--hover-border: #3ddc84; --hover-bg: rgba(61, 220, 132, 0.1); --hover-text: #3ddc84;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" alt="" />
+                  Android Studio
+                </span>
+                <span class="skill-tag" style="--hover-border: var(--skill-white-hover); --hover-bg: var(--skill-white-hover-bg); --hover-text: var(--skill-white-hover);">
+                  <img class="skill-logo logo-invert" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/expo.svg" alt="" />
+                  Expo Go
+                </span>
+                <span class="skill-tag" style="--hover-border: #007acc; --hover-bg: rgba(0, 122, 204, 0.1); --hover-text: #007acc;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="" />
+                  VS Code
+                </span>
+                <span class="skill-tag" style="--hover-border: #00c4cc; --hover-bg: rgba(0, 196, 204, 0.1); --hover-text: #00c4cc;">
+                  <img class="skill-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/canva.svg" alt="" />
+                  Canva
+                </span>
+              </div>
+            </div>
+            
+            <div class="skill-cell">
+              <h3 class="skill-cell__title">Core CS</h3>
+              <div class="tags">
+                <span class="skill-tag" style="--hover-border: #a855f7; --hover-bg: rgba(168, 85, 247, 0.1); --hover-text: #a855f7;">
+                  <svg class="skill-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M12 10l-4 4M12 10l4 4M8 14H4v4h4v-4zM20 14h-4v4h4v-4zM14 2h-4v4h4V2z"/></svg>
+                  DSA
+                </span>
+                <span class="skill-tag" style="--hover-border: #3b82f6; --hover-bg: rgba(59, 130, 246, 0.1); --hover-text: #3b82f6;">
+                  <svg class="skill-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="m6 8 3 3-3 3M12 13h4"/></svg>
+                  Operating Systems
+                </span>
+                <span class="skill-tag" style="--hover-border: #10b981; --hover-bg: rgba(16, 185, 129, 0.1); --hover-text: #10b981;">
+                  <svg class="skill-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M12 8v8M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/></svg>
+                  Computer Networks
+                </span>
+                <span class="skill-tag" style="--hover-border: #f59e0b; --hover-bg: rgba(245, 158, 11, 0.1); --hover-text: #f59e0b;">
+                  <svg class="skill-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  System Architecture
+                </span>
+              </div>
+            </div>
+            <div class="skill-cell skill-cell--edu">
+              <h3 class="skill-cell__title">Education</h3>
+              <p class="edu__line"><strong>B.Tech, Computer Science</strong></p>
+              <p class="edu__sub">SSIET, Raipur · Sep 2023 — Aug 2027</p>
+              <p class="edu__line"><strong>Class XII — Science · 67%</strong></p>
+              <p class="edu__sub">Gurukul Higher Secondary · 2023</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ PROJECTS PANEL ============ -->
+        <section class="panel" id="projects" aria-label="Projects" data-reveal>
+          <div class="panel__head">
+            <p class="kicker">MY PROJECTS</p>
+            <a class="link-gold" href="https://github.com/Piyushverma122" target="_blank" rel="noopener">view more projects ↗</a>
+          </div>
+
+          <div class="proj-grid">
+            <a class="proj" href="https://github.com/Piyushverma122" target="_blank" rel="noopener">
+              <div class="proj__top">
+                <h3 class="proj__title">Harihar Paathshaala <span>↗</span></h3>
+                <span class="proj__date">2024 — 2025</span>
+              </div>
+              <div class="tags">
+                <span class="tag">Flutter</span><span class="tag">Flask</span><span class="tag">MySQL</span>
+              </div>
+              <p class="proj__desc">Plantation &amp; student-participation portal for the Govt. of Chhattisgarh.</p>
+              <ul class="proj__list">
+                <li>Each government-school student is given a plant to grow and track.</li>
+                <li>Students and teachers upload tree photos for transparency and active participation.</li>
+              </ul>
+            </a>
+
+            <a class="proj" href="https://github.com/Piyushverma122" target="_blank" rel="noopener">
+              <div class="proj__top">
+                <h3 class="proj__title">Green Paalna <span>↗</span></h3>
+                <span class="proj__date">2025</span>
+              </div>
+              <div class="tags">
+                <span class="tag">Flutter</span><span class="tag">Geo-tag</span><span class="tag">MySQL</span>
+              </div>
+              <p class="proj__desc">Plantation monitoring linked to childbirth, for the Govt. of Chhattisgarh.</p>
+              <ul class="proj__list">
+                <li>New mothers receive 5 saplings with geo-tagged verification and pledge certificates.</li>
+                <li>3-month monitoring via alerts and photo uploads by mothers, health workers &amp; Mitanni.</li>
+              </ul>
+            </a>
+
+            <a class="proj" href="https://github.com/Piyushverma122" target="_blank" rel="noopener">
+              <div class="proj__top">
+                <h3 class="proj__title">Har Ghar Munga <span>↗</span></h3>
+                <span class="proj__date">2025</span>
+              </div>
+              <div class="tags">
+                <span class="tag">Flutter</span><span class="tag">Flask</span><span class="tag">MySQL</span>
+              </div>
+              <p class="proj__desc">Nutritional &amp; environmental drive distributing Moringa saplings.</p>
+              <ul class="proj__list">
+                <li>Reached 10,000+ families and Anganwadi centers across the state.</li>
+                <li>Aimed at reducing anemia &amp; malnutrition while supporting sustainability.</li>
+              </ul>
+            </a>
+
+            <a class="proj" href="https://github.com/Piyushverma122" target="_blank" rel="noopener">
+              <div class="proj__top">
+                <h3 class="proj__title">Radar Detector <span>↗</span></h3>
+                <span class="proj__date">2024</span>
+              </div>
+              <div class="tags">
+                <span class="tag">Arduino</span><span class="tag">C++</span><span class="tag">Sensors</span>
+              </div>
+              <p class="proj__desc">An Arduino radar system that detects objects and measures distance.</p>
+              <ul class="proj__list">
+                <li>Integrated radar sensors for real-time object detection.</li>
+                <li>Applied to automation and safety use cases.</li>
+              </ul>
+            </a>
+
+            <a class="proj" href="https://github.com/Piyushverma122" target="_blank" rel="noopener">
+              <div class="proj__top">
+                <h3 class="proj__title">SkyTM <span>↗</span></h3>
+                <span class="proj__date">2025</span>
+              </div>
+              <div class="tags">
+                <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">SQL</span>
+              </div>
+              <p class="proj__desc">A digital-wallet system for fast, secure money transactions.</p>
+              <ul class="proj__list">
+                <li>Handles transfers with a clean, responsive interface.</li>
+              </ul>
+            </a>
+
+            <a class="proj" href="https://github.com/Piyushverma122" target="_blank" rel="noopener">
+              <div class="proj__top">
+                <h3 class="proj__title">Smriti Pustakalaya <span>↗</span></h3>
+                <span class="proj__date">2025</span>
+              </div>
+              <div class="tags">
+                <span class="tag">React</span><span class="tag">Flask</span><span class="tag">MySQL</span>
+              </div>
+              <p class="proj__desc">A digital library platform for the Govt. of Chhattisgarh.</p>
+              <ul class="proj__list">
+                <li>Lets donors contribute books and track library inventory.</li>
+              </ul>
+            </a>
+          </div>
+        </section>
+
+        <!-- ============ CONTACT PANEL ============ -->
+        <section class="panel contact" id="contact" aria-label="Contact" data-reveal>
+          <div class="contact__left">
+            <p class="kicker">CONTACT</p>
+            <p class="contact__line">Available for internships, freelance projects, and collaborations.</p>
+            <p class="contact__copy">© 2026 Piyush Verma</p>
+          </div>
+          <div class="contact__links">
+            <a href="mailto:rajruchi2013@gmail.com">email</a>
+            <a href="https://github.com/Piyushverma122" target="_blank" rel="noopener">github</a>
+            <a href="https://www.linkedin.com/in/piyush-verma-855400311/" target="_blank" rel="noopener">linkedin</a>
+            <a href="https://drive.google.com/file/d/1hNzTaz5Vd_vHeZI0MRxZd1ruhw2KL4iG/view?usp=sharing" target="_blank" rel="noopener">resume</a>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="script.js"></script>
+  <script src="decryptedtext.js"></script>
+  <script src="cardnav.js"></script>
+  <script src="theme.js"></script>
+  
+  <!-- Lenis Inertia Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis({
+      autoRaf: true,
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1,
+      prevent: (node) => node.id === 'activity' || node.classList.contains('activity')
+    });
+  </script>
+</body>
+</html>
