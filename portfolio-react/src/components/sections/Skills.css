@@ -1,0 +1,52 @@
+/* =========================================================
+   SKILLS — violet theme, Sora/DM Sans (logos kept)
+   ========================================================= */
+.skills-theme {
+  --accent: #a78bfa;
+  --accent-soft: rgba(167, 139, 250, 0.12);
+  --accent-line: rgba(167, 139, 250, 0.35);
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+.skills-theme .sec-label { color: var(--accent); margin: 0 0 1.5rem; }
+.skills-theme .sec-label::before { background: var(--accent); }
+
+.skill2-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.skill2-cell {
+  position: relative;
+  padding: 1.2rem 1.3rem;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.06), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 2px solid var(--accent-line);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.skill2-cell:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+.skill2-title {
+  margin: 0 0 0.9rem;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.skill2-cell--edu .edu2-line {
+  margin: 0.55rem 0 0;
+  font-size: 0.92rem;
+  color: #e6e6e6;
+}
+.skill2-cell--edu .edu2-line:first-of-type { margin-top: 0; }
+.skill2-cell--edu .edu2-sub {
+  margin: 0.1rem 0 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: #8b8b93;
+}

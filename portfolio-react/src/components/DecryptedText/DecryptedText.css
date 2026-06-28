@@ -1,0 +1,4 @@
+/* DecryptedText styling lives in globals.css (.decrypt, .decrypt__ghost,
+   .decrypt__live, .encrypted) so the effect matches the rest of the UI.
+   This file is kept per the component structure and can hold any
+   component-specific overrides if needed. */

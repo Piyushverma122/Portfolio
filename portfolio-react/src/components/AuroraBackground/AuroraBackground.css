@@ -1,0 +1,95 @@
+/* =========================================================
+   Aurora Background — vanilla CSS port of Aceternity UI
+   Animated repeating-linear-gradient with a blurred, blended
+   shimmer layer. Variants override --aurora.
+   ========================================================= */
+.aurora-bg {
+  position: relative;
+  isolation: isolate; /* WHY: keep aurora's z-index local to this wrapper */
+}
+
+.aurora-bg__fx {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.aurora-bg__content {
+  position: relative;
+  z-index: 1; /* children always render above the aurora */
+}
+
+.aurora-bg__layer {
+  /* mask gradients that carve the aurora into ribbons */
+  --dark-grad: repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%);
+  /* default aurora (overridden by variant classes) */
+  --aurora: repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%);
+
+  position: absolute;
+  inset: -14px; /* bleed past edges so blur doesn't reveal a hard border */
+  background-image: var(--dark-grad), var(--aurora);
+  background-size: 300%, 200%;
+  background-position: 50% 50%, 50% 50%;
+  filter: blur(12px);
+  opacity: 0.5;
+  /* WHY: promote to its own GPU layer so the animation never repaints siblings */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* The animated shimmer rides on a pseudo-element using mix-blend so the
+   ribbons drift and interfere — the signature aurora look. Only
+   background-position animates (cheap, compositor-friendly). */
+.aurora-bg__layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--dark-grad), var(--aurora);
+  background-size: 200%, 100%;
+  mix-blend-mode: difference;
+  animation: aurora 60s linear infinite;
+}
+
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to   { background-position: 350% 50%, 350% 50%; }
+}
+
+/* ---- Color variants (override --aurora only) ---- */
+.aurora-gold {
+  --aurora: repeating-linear-gradient(
+    100deg,
+    rgba(201, 168, 76, 0.55) 10%,
+    rgba(120, 90, 30, 0.5) 15%,
+    rgba(201, 168, 76, 0.32) 20%,
+    rgba(60, 50, 20, 0.5) 25%,
+    rgba(201, 168, 76, 0.6) 30%
+  );
+}
+.aurora-dark {
+  --aurora: repeating-linear-gradient(100deg, #1a1a2e 10%, #16213e 15%, #0f3460 20%, #1a1a2e 25%, #0d0d1a 30%);
+}
+.aurora-blue {
+  --aurora: repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%);
+}
+
+/* Fade the aurora out toward the edges (top-right anchored, like the original) */
+.aurora-bg__layer--radial {
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, #000 10%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 100% 0%, #000 10%, transparent 70%);
+}
+
+/* Pause hook target + reduced motion */
+.animate-aurora.aurora-paused,
+.animate-aurora.aurora-paused::after {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg__layer::after,
+  [class*="animate-aurora"]::after {
+    animation: none !important;
+  }
+}
