@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "installCommand": "cd portfolio-react && npm install",
+  "buildCommand": "cd portfolio-react && npm run build",
+  "outputDirectory": "portfolio-react/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
