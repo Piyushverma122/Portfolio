@@ -118,7 +118,7 @@ function CardNav() {
         if (isExpanded && tlRef.current) tlRef.current.progress(1);
       }, 150);
     };
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
   }, [isExpanded, calculateHeight, createTimeline]);
 

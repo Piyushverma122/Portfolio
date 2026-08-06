@@ -30,7 +30,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
   position: relative;
   overflow: hidden;
-  will-change: height;
 }
 
 .card-nav-top {
@@ -64,7 +63,7 @@
   width: 28px;
   height: 2px;
   background-color: currentColor;
-  transition: transform 0.25s ease, opacity 0.2s ease, margin 0.3s ease;
+  transition: transform 0.25s ease, opacity 0.2s ease;
   transform-origin: 50% 50%;
 }
 .hamburger-menu.open .hamburger-line:first-child { transform: translateY(4px) rotate(45deg); }

@@ -106,7 +106,7 @@ export default function Hero() {
       <div className="hero__body">
         <div className="hero__head">
           <div className="hero__pfp">
-            <img src="/assets/piyush.png" alt="Portrait of Piyush Verma" loading="eager" onError={onPfpError} />
+            <img src="/assets/piyush.png" alt="Portrait of Piyush Verma" loading="eager" decoding="async" onError={onPfpError} />
           </div>
 
           <div className="hero__namewrap">

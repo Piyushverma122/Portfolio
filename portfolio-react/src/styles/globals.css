@@ -585,18 +585,26 @@ html[data-theme="light"] .skill-tag {
 /* ---------- ACTIVITY GRAPH ---------- */
 .activity {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   overflow-x: auto;
-  padding-bottom: 0.3rem;
+  padding: 8px 0;
+}
+
+.activity__container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 auto;
 }
 
 .activity__months {
   display: grid;
   gap: 3px;
-  padding-left: 30px;
+  padding-left: 32px;
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   color: var(--text-mute);
 }
 
@@ -607,6 +615,7 @@ html[data-theme="light"] .skill-tag {
 .activity__body {
   display: flex;
   gap: 6px;
+  justify-content: center;
 }
 
 .activity__days {
@@ -709,7 +718,7 @@ html[data-theme="light"] .skill-tag {
 
 [data-reveal].is-visible {
   opacity: 1;
-  transform: none;
+  transform: translateY(0);
 }
 
 /* ---------- RESPONSIVE ---------- */
@@ -2150,39 +2159,49 @@ html.lenis body {
 /* =========================================================
    GITHUB ACTIVITY GRAPH WIDGET ("LIKE GITHUB")
    ========================================================= */
-.github-widget {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-@media (min-width: 769px) {
-  .github-widget {
-    display: grid;
-    grid-template-columns: 1fr 130px;
-    gap: 24px;
-  }
+.github-widget.panel {
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
 
-.github-widget__main {
+.github-widget__elastic {
+  padding: clamp(28px, 4vw, 36px);
+  width: 100%;
+  height: 100%;
+}
+
+.github-widget__inner {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-width: 0;
+  gap: 28px;
+  width: 100%;
 }
 
 .github-widget__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 4px;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.github-widget__header-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
   flex-wrap: wrap;
 }
+
 .github-widget__count {
   font-family: "Manrope", sans-serif;
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text);
+  margin: 0;
 }
 
 .github-widget__footer {
@@ -2190,10 +2209,10 @@ html.lenis body {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 10px;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   color: var(--text-mute);
   flex-wrap: wrap;
+  width: 100%;
 }
 .github-widget__learn {
   color: var(--text-mute);
@@ -2205,7 +2224,7 @@ html.lenis body {
 .github-widget__legend {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 .legend-cell {
   width: 10px;
@@ -2220,43 +2239,45 @@ html.lenis body {
 
 html[data-theme="light"] .legend-cell.l0 { background: rgba(0, 0, 0, 0.06); border: 1px solid rgba(0, 0, 0, 0.05); }
 
-/* Sidebar Years */
-.github-widget__sidebar {
+/* Year Selector in Header */
+.activity__years {
   display: flex;
-  flex-direction: column;
-}
-.github-widget__sidebar .activity__years {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: stretch;
+  align-items: center;
+  gap: 6px;
 }
 .activity__year-btn {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.76rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  border: none;
-  background: transparent;
+  font-size: 0.78rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
   color: var(--text-dim);
   cursor: pointer;
-  text-align: left;
-  transition: background 0.15s ease, color 0.15s ease;
+  text-align: center;
+  transition: all 0.18s ease;
 }
 .activity__year-btn:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 .activity__year-btn.active {
   background: #0969da;
+  border-color: #0969da;
   color: #ffffff;
   font-weight: 500;
 }
+html[data-theme="light"] .activity__year-btn {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.03);
+}
 html[data-theme="light"] .activity__year-btn:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.06);
 }
 html[data-theme="light"] .activity__year-btn.active {
   background: #0969da;
+  border-color: #0969da;
   color: #ffffff;
 }
 

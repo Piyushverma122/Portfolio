@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useScrollReveal } from "../../hooks/useScrollReveal.js";
+import ElasticMesh from "../ElasticMesh/ElasticMesh.jsx";
 
 const WEEKS = 53;
 const DAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
@@ -138,99 +139,120 @@ export default function GithubActivity() {
       ? "Contributions unavailable right now"
       : graph?.countText || "";
 
-  const hasDefaultYear = data ? data.total[DEFAULT_YEAR] !== undefined : false;
-
   return (
     <section className="panel github-widget" aria-label="Activity graph" data-reveal ref={ref}>
-      <div className="github-widget__main">
-        <div className="github-widget__header">
-          <h3 className="github-widget__count">{countText}</h3>
-          <a className="link-gold" href={`https://github.com/${USER}`} target="_blank" rel="noopener">
-            view profile ↗
-          </a>
-        </div>
+      <ElasticMesh
+        interaction="hover"
+        tilt={0}
+        shading={0.5}
+        color1="#101014"
+        color2="#18181c"
+        showGrid={false}
+        gridDensity={20}
+        gridOpacity={0.28}
+        gridColor="#ffffff"
+        highlight="#ffffff"
+        borderRadius={22}
+        stiffness={0.05}
+        damping={0.2}
+        grabRadius={0.6}
+        pull={0.4}
+        wobble={5}
+        resolution={25}
+        fitX={0.95}
+        fitY={0.82}
+        enabled
+        className="github-widget__elastic"
+      >
+        <div className="github-widget__inner">
+          <div className="github-widget__header">
+            <div className="github-widget__header-title-group">
+              <h3 className="github-widget__count">{countText}</h3>
+              <a className="link-gold" href={`https://github.com/${USER}`} target="_blank" rel="noopener">
+                view profile ↗
+              </a>
+            </div>
 
-        <div className="activity" aria-hidden="true">
-          {graph && (
-            <>
-              <div
-                className="activity__months"
-                style={{ gridTemplateColumns: `repeat(${graph.columns}, 13px)` }}
-              >
-                {graph.months.map((m, i) => (
-                  <span key={i} style={{ gridColumn: `${m.col} / span 4` }}>
-                    {m.label}
-                  </span>
+            {data && (
+              <div className="activity__years">
+                <button
+                  className={`activity__year-btn${view.type === "trailing" ? " active" : ""}`}
+                  type="button"
+                  onClick={() => setView({ type: "trailing" })}
+                >
+                  Last Year
+                </button>
+                {years.map((yr) => (
+                  <button
+                    key={yr}
+                    className={`activity__year-btn${
+                      view.type === "year" && view.year === yr ? " active" : ""
+                    }`}
+                    type="button"
+                    onClick={() => setView({ type: "year", year: yr })}
+                  >
+                    {yr}
+                  </button>
                 ))}
               </div>
-              <div className="activity__body">
-                <div className="activity__days">
-                  {DAY_LABELS.map((lbl, i) => (
-                    <span key={i}>{lbl}</span>
+            )}
+          </div>
+
+          <div className="activity" aria-hidden="true">
+            {graph && (
+              <div className="activity__container">
+                <div
+                  className="activity__months"
+                  style={{ gridTemplateColumns: `repeat(${graph.columns}, 13px)` }}
+                >
+                  {graph.months.map((m, i) => (
+                    <span key={i} style={{ gridColumn: `${m.col} / span 4` }}>
+                      {m.label}
+                    </span>
                   ))}
                 </div>
-                <div className="activity__grid">
-                  {graph.cells.map((c, i) => (
-                    <div
-                      key={i}
-                      className={`cell${c.empty || !c.level ? "" : ` l${c.level}`}`}
-                      title={c.title || undefined}
-                    />
-                  ))}
+                <div className="activity__body">
+                  <div className="activity__days">
+                    {DAY_LABELS.map((lbl, i) => (
+                      <span key={i}>{lbl}</span>
+                    ))}
+                  </div>
+                  <div className="activity__grid">
+                    {graph.cells.map((c, i) => (
+                      <div
+                        key={i}
+                        className={`cell${c.empty || !c.level ? "" : ` l${c.level}`}`}
+                        title={c.title || undefined}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
-            </>
-          )}
-        </div>
+            )}
+          </div>
 
-        <div className="github-widget__footer">
-          <a
-            className="github-widget__learn"
-            href="https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/managing-contribution-graphs-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile"
-            target="_blank"
-            rel="noopener"
-          >
-            Learn how we count contributions
-          </a>
-          <div className="github-widget__legend">
-            <span>Less</span>
-            <span className="legend-cell l0" />
-            <span className="legend-cell l1" />
-            <span className="legend-cell l2" />
-            <span className="legend-cell l3" />
-            <span className="legend-cell l4" />
-            <span>More</span>
+          <div className="github-widget__footer">
+            <a
+              className="github-widget__learn"
+              href="https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/managing-contribution-graphs-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile"
+              target="_blank"
+              rel="noopener"
+            >
+              Learn how we count contributions
+            </a>
+            <div className="github-widget__legend">
+              <span>Less</span>
+              <span className="legend-cell l0" />
+              <span className="legend-cell l1" />
+              <span className="legend-cell l2" />
+              <span className="legend-cell l3" />
+              <span className="legend-cell l4" />
+              <span>More</span>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="github-widget__sidebar">
-        <div className="activity__years">
-          {data && (
-            <>
-              <button
-                className={`activity__year-btn${view.type === "trailing" ? " active" : ""}`}
-                type="button"
-                onClick={() => setView({ type: "trailing" })}
-              >
-                Last Year
-              </button>
-              {years.map((yr) => (
-                <button
-                  key={yr}
-                  className={`activity__year-btn${
-                    view.type === "year" && view.year === yr ? " active" : ""
-                  }`}
-                  type="button"
-                  onClick={() => setView({ type: "year", year: yr })}
-                >
-                  {yr}
-                </button>
-              ))}
-            </>
-          )}
-        </div>
-      </div>
+      </ElasticMesh>
     </section>
   );
 }
+
