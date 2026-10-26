@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useScrollReveal } from "../../hooks/useScrollReveal.js";
+import SectionHead from "./SectionHead.jsx";
 import "./Experience.css";
 
 const EXPERIENCE = [
@@ -52,51 +53,65 @@ const EXPERIENCE = [
   },
 ];
 
+// "Jun 2026 — Present · 1 mo" → { range: "Jun 2026 — Present", length: "1 mo" }
+function splitPeriod(period) {
+  const [range, length] = period.split(" · ");
+  return { range, length };
+}
+
 function Experience() {
   const ref = useScrollReveal();
   return (
-    <section className="panel exp-theme" id="experience" aria-label="Experience" data-reveal ref={ref}>
-      <p className="sec-label">EXPERIENCE</p>
+    <section className="panel ed" id="experience" aria-label="Experience" data-reveal ref={ref}>
+      <SectionHead
+        num="01"
+        label="Experience"
+        title={
+          <>
+            Where I&rsquo;ve <em>worked</em>
+          </>
+        }
+      />
 
-      <div className="exp2-list">
-        {EXPERIENCE.map((job) => (
-          <article className="exp2" key={job.title}>
-            <div className="exp2__media" aria-hidden="true">
-              {job.logo ? (
-                <img src={job.logo} alt="" loading="lazy" />
-              ) : (
-                <span className="exp2__mono">{job.mono}</span>
-              )}
-            </div>
-
-            <div className="exp2__body">
-              <div className="exp2__top">
-                <h3 className="exp2__title">{job.title}</h3>
-                <span className="exp2__period">{job.period}</span>
+      <ol className="xp">
+        {EXPERIENCE.map((job) => {
+          const { range, length } = splitPeriod(job.period);
+          return (
+            <li className="xp__row" key={job.title}>
+              <div className="xp__when">
+                <span className="xp__range">{range}</span>
+                {length && <span className="meta">{length}</span>}
               </div>
-              <p className="exp2__company">{job.company}</p>
-              <p className="exp2__desc">{job.description}</p>
 
-              <ul className="exp2__bullets">
-                {job.bullets.map((b, i) => (
-                  <li key={i}>
-                    <span className="exp2__arrow">›</span>
-                    {b}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="exp2__tags">
-                {job.tags.map((t) => (
-                  <span className="chip2" key={t}>
-                    {t}
+              <div className="xp__body">
+                <div className="xp__head">
+                  <span className="xp__logo" aria-hidden="true">
+                    {job.logo ? <img src={job.logo} alt="" loading="lazy" /> : job.mono}
                   </span>
-                ))}
+                  <div>
+                    <h3 className="xp__title">{job.title}</h3>
+                    <p className="meta xp__company">{job.company}</p>
+                  </div>
+                </div>
+
+                <p className="xp__desc">{job.description}</p>
+
+                <ul className="dash-list xp__bullets">
+                  {job.bullets.map((b) => (
+                    <li key={b}>{b}</li>
+                  ))}
+                </ul>
+
+                <ul className="stack" aria-label="Focus areas">
+                  {job.tags.map((t) => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </article>
-        ))}
-      </div>
+            </li>
+          );
+        })}
+      </ol>
     </section>
   );
 }

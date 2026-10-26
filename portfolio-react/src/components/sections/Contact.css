@@ -1,91 +1,104 @@
 /* =========================================================
-   CONTACT — warm gold theme, full-bleed background image
+   CONTACT — editorial call to action: big Cormorant line,
+   the email as the main element, quiet footer underneath.
    ========================================================= */
-.contact-theme {
-  --accent: #e3b341;
-  --accent-soft: rgba(227, 179, 65, 0.14);
-  --accent-line: rgba(227, 179, 65, 0.4);
-  position: relative;
-  overflow: hidden;
-  padding: 0;                 /* image card fills the panel */
-  font-family: "DM Sans", system-ui, sans-serif;
-  border-color: var(--accent-line);
+#contact .sec-head {
+  margin-bottom: 1.1rem;
 }
 
-.contact2__bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.42) saturate(1.05);
-  transform: scale(1.04);
+.cta__title {
+  margin: 0;
+  max-width: 22ch;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2.3rem, 6.4vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--text);
 }
-/* warm gradient wash so it reads as gold + stays readable */
-.contact-theme::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(70% 120% at 100% 0%, rgba(227, 179, 65, 0.28), transparent 60%),
-    linear-gradient(180deg, rgba(10, 10, 12, 0.55), rgba(10, 10, 12, 0.82));
-  pointer-events: none;
+.cta__title em {
+  font-style: italic;
+  color: var(--ink-gold);
 }
 
-.contact2__content {
-  position: relative;
-  z-index: 1;
-  padding: clamp(2rem, 5vw, 3.6rem);
+.cta__status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.4rem 0 0;
+  font-size: 0.95rem;
+  color: var(--text-dim);
 }
-.contact-theme .sec-label { color: var(--accent); margin: 0 0 1.1rem; }
-.contact-theme .sec-label::before { background: var(--accent); }
-
-.contact2__title {
-  margin: 0 0 0.7rem;
-  font-family: "Sora", sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.7rem, 4.5vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: #fff;
-  max-width: 20ch;
-}
-.contact2__sub {
-  margin: 0 0 1.8rem;
-  font-size: 1.02rem;
-  color: #d7d7db;
-  max-width: 48ch;
+.cta__dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(95, 217, 127, 0.15);
 }
 
-.contact2__links {
+.cta__mail {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
-  margin-bottom: 1.8rem;
-}
-.contact2__pill {
-  display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.82rem;
-  padding: 0.6rem 1.1rem;
-  border-radius: 999px;
-  color: #fff;
-  text-decoration: none;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--accent-line);
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  gap: 0.8rem 1.2rem;
+  margin: clamp(1.8rem, 4vw, 2.6rem) 0 0;
 }
-.contact2__pill span { color: var(--accent); }
-.contact2__pill:hover {
-  transform: translateY(-2px);
-  background: var(--accent-soft);
-  border-color: var(--accent);
+.cta__email {
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(1rem, 2.8vw, 1.6rem);
+  color: var(--text);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  background: linear-gradient(var(--gold), var(--gold)) 0 100% / 100% 1px no-repeat;
+  padding-bottom: 0.2rem;
+  transition: color 0.2s ease;
+}
+.cta__email:hover,
+.cta__email:focus-visible {
+  color: var(--ink-gold);
 }
 
-.contact2__copy {
-  margin: 0;
+.cta__copy {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.74rem;
-  color: #9a9aa2;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-2);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.cta__copy:hover,
+.cta__copy:focus-visible {
+  color: var(--ink-gold);
+  border-color: var(--gold);
+}
+
+.cta__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: clamp(2.2rem, 5vw, 3.4rem);
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--border);
+}
+.cta__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cta__copyright {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.2rem;
+  margin: 0;
 }

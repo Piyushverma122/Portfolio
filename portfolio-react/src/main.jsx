@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import "./styles/globals.css";
 import "./components/CardNav/CardNav.css";
 import "./components/DecryptedText/DecryptedText.css";
+import "./components/sections/sections.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

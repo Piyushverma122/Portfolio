@@ -1,163 +1,98 @@
 /* =========================================================
-   MY PROJECTS — sky theme, Sora/DM Sans, image header cards
+   PROJECTS — case-study rows: framed screenshot + write-up,
+   alternating sides. Hairline between rows, no glow cards.
    ========================================================= */
-.proj-theme {
-  --accent: #38bdf8;
-  --accent-soft: rgba(56, 189, 248, 0.12);
-  --accent-line: rgba(56, 189, 248, 0.35);
-  font-family: "DM Sans", system-ui, sans-serif;
-}
-
-.proj2-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-.proj-theme .sec-label {
-  color: var(--accent);
-  margin: 0;
-}
-.proj-theme .sec-label::before { background: var(--accent); }
-.proj2-more {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.76rem;
-  color: var(--accent);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-.proj2-more:hover { opacity: 0.7; }
-
-.proj2-grid {
+.cases {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
 }
-.proj2--featured { grid-column: 1 / -1; }
 
-.proj2 {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 18px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+.case {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 4vw, 3.2rem);
+  align-items: center;
+  padding: clamp(1.6rem, 3.5vw, 2.6rem) 0;
+  border-top: 1px solid var(--border);
 }
-.proj2::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: 0 0 0 1px var(--accent-line), 0 16px 42px rgba(56, 189, 248, 0.12);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
+.case:last-child {
+  padding-bottom: 0;
 }
-.proj2:hover {
-  transform: scale(1.01);
-  border-color: var(--accent);
-}
-.proj2:hover::after { opacity: 1; }
 
-.proj2__media {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: rgba(18, 18, 22, 0.6);
+/* alternate: screenshot on the right for every second project
+   (columns mirrored too, so the image keeps the wider track) */
+.case:nth-child(even) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
 }
-.proj2--featured .proj2__media { aspect-ratio: 21 / 7; }
-.proj2__media img {
+.case:nth-child(even) .case__media {
+  order: 2;
+}
+
+.case__media {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--border-2);
+  background: var(--panel-2);
+}
+.case__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(1.05) brightness(0.88);
-  will-change: transform;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  object-position: top;
+  transition: transform 0.5s var(--ease);
 }
-.proj2:hover .proj2__media img {
-  transform: scale(1.05);
-  filter: saturate(1.15) brightness(0.98);
-}
-/* gradient so text/year stay readable over the image */
-.proj2__media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 12, 0.85));
-}
-.proj2__year {
-  position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
-  z-index: 1;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.68rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  background: rgba(10, 10, 12, 0.78); /* solid-ish instead of backdrop blur */
-  border: 1px solid var(--accent-line);
-  color: var(--accent);
+.case:hover .case__media img {
+  transform: scale(1.02);
 }
 
-/* ---- Body ---- */
-.proj2__body {
-  padding: 1.2rem 1.4rem 1.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+.case__text {
+  display: grid;
+  gap: 0.85rem;
+  justify-items: start;
 }
-.proj2__name {
+
+.case__num {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--ink-gold);
+}
+
+.case__name {
   margin: 0;
   font-family: "Sora", sans-serif;
   font-weight: 600;
-  font-size: 1.2rem;
-  letter-spacing: -0.01em;
-  color: #fff;
+  font-size: clamp(1.25rem, 2.6vw, 1.55rem);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--text);
 }
-.proj2__arrow { color: var(--accent); }
-.proj2__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-.proj2__desc {
-  font-size: 0.92rem;
-  line-height: 1.5;
-  color: #d9d9dd;
-  margin: 0;
-}
-.proj2__bullets {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-.proj2__bullets li {
-  position: relative;
-  padding-left: 1rem;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  color: #9a9aa2;
-}
-.proj2__bullets li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--accent);
+.case__meta {
+  margin: -0.4rem 0 0;
 }
 
-@media (max-width: 1024px) {
-  .proj2-grid { grid-template-columns: repeat(2, 1fr); }
+.case__desc {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.88;
 }
-@media (max-width: 640px) {
-  .proj2-grid { grid-template-columns: 1fr; }
-  .proj2--featured { grid-column: auto; }
-  .proj2--featured .proj2__media { aspect-ratio: 16 / 9; }
+
+.case__link {
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 820px) {
+  .case,
+  .case:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .case:nth-child(even) .case__media {
+    order: 0;
+  }
 }

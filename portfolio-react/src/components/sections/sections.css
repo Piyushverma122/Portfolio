@@ -1,0 +1,137 @@
+/* =========================================================
+   EDITORIAL SECTIONS — shared language for Experience,
+   Toolkit, Projects and Contact. Matches the hero: one gold
+   accent, Cormorant titles, mono meta text, hairline rules.
+   Colors come only from the theme tokens so light mode works.
+   ========================================================= */
+.ed {
+  /* gold used for TEXT: the bright --gold fails contrast on light panels */
+  --ink-gold: var(--gold);
+  font-family: "Manrope", system-ui, sans-serif;
+  color: var(--text);
+}
+html[data-theme="light"] .ed {
+  --ink-gold: #946a0c;
+}
+
+/* ---- Section header ---- */
+.sec-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(1.6rem, 3.5vw, 2.4rem);
+}
+.sec-head__kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.7rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.sec-head__num {
+  color: var(--ink-gold);
+}
+.sec-head__dash {
+  width: 22px;
+  height: 1px;
+  background: var(--border-2);
+}
+.sec-head__title {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  line-height: 1.02;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.sec-head__title em {
+  font-style: italic;
+  color: var(--ink-gold);
+}
+.sec-head__aside {
+  flex: none;
+  padding-bottom: 0.35rem;
+}
+
+/* ---- Shared bits ---- */
+.meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  color: var(--text-mute);
+}
+
+/* Inline tech list instead of chips: "React · Node.js · SQL" */
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  color: var(--text-dim);
+}
+.stack li + li::before {
+  content: "·";
+  margin: 0 0.55rem;
+  color: var(--ink-gold);
+}
+
+/* Bullet list with a short gold bar marker (a drawn bar, not a "–" glyph:
+   a 1px glyph anti-aliases to grey at some sub-pixel offsets) */
+.dash-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.4rem;
+}
+.dash-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+.dash-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.78em;
+  width: 7px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--gold);
+}
+
+/* Gold text link whose underline grows on hover */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.76rem;
+  color: var(--ink-gold);
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.3s var(--ease);
+}
+.link-arrow:hover,
+.link-arrow:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (max-width: 640px) {
+  .sec-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+}

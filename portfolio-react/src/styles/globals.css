@@ -29,10 +29,6 @@
   --radius-sm: 14px;
   --maxw: 1080px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-
-  /* Skills brand colors white-theme fallback variables */
-  --skill-white-hover: #ffffff;
-  --skill-white-hover-bg: rgba(255, 255, 255, 0.08);
 }
 
 * {
@@ -182,68 +178,6 @@ ul {
 .pill:hover {
   border-color: var(--gold);
   transform: translateY(-1px);
-}
-
-/* ---------- Tags / pills (shared) ---------- */
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-/* ---------- Dedicated Skill Tags with Logos ---------- */
-.skill-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.01em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: var(--text-dim);
-  white-space: nowrap;
-  transition: transform 0.2s var(--ease), border-color 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-  cursor: default;
-}
-
-.skill-logo {
-  width: 14px;
-  height: 14px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-
-.skill-logo-svg {
-  width: 13px;
-  height: 13px;
-  stroke-width: 2.2px;
-  flex-shrink: 0;
-  display: block;
-}
-
-.skill-tag:hover {
-  border-color: var(--hover-border);
-  background: var(--hover-bg);
-  color: var(--hover-text);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.logo-invert {
-  filter: invert(1) brightness(1.5);
-}
-
-html[data-theme="light"] .logo-invert {
-  filter: none;
-}
-
-html[data-theme="light"] .skill-tag {
-  background: rgba(0, 0, 0, 0.02);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  color: var(--text-dim);
 }
 
 /* ---------- EXPERIENCE ---------- */
@@ -547,8 +481,6 @@ html[data-theme="light"] {
   --text-dim: #3a3a40;
   --text-mute: #5c5c64;
   --gold-dim: rgba(227, 179, 65, 0.18);
-  --skill-white-hover: #16161a;
-  --skill-white-hover-bg: rgba(0, 0, 0, 0.05);
 }
 
 html[data-theme="light"] body {
@@ -1118,32 +1050,21 @@ html[data-theme="light"] .panel.hero {
   font-size: clamp(28px, 6.2vw, 70px);
   line-height: 1.06;
   letter-spacing: 0.005em;
-  background: linear-gradient(100deg, #ffffff 0%, #fdf1ce 42%, #e3b341 100%);
-  background-size: 220% auto;
+  /* Static white → gold gradient. It used to shimmer (animated
+     background-position), which repainted this filtered text every frame
+     and was a measured share of the scroll jank. */
+  background: linear-gradient(100deg, #ffffff 0%, #fdf1ce 45%, #e3b341 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  /* one shadow, not two: the shimmer repaints this text every frame and
-     each drop-shadow is re-filtered on every repaint */
   filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.55));
-  animation: q-shimmer 6.5s linear infinite;
 }
 
 .hero__quote-text .q-em {
   font-style: italic;
   font-size: 1.14em;
   padding: 0 0.04em;
-}
-
-@keyframes q-shimmer {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  100% {
-    background-position: 220% 50%;
-  }
 }
 
 /* Floating particles around the quote */
@@ -1296,8 +1217,8 @@ html[data-theme="light"] .panel.hero {
   inset: 0;
   background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.65) 50%, transparent 100%);
   transform: translateX(-100%);
-  animation: verified-shimmer 4.5s ease-in-out infinite;
-  will-change: transform;
+  /* one sweep after the hero entrance, not forever */
+  animation: verified-shimmer 4.5s ease-in-out 1.2s 1;
 }
 
 @keyframes verified-shimmer {
@@ -1406,12 +1327,10 @@ html[data-theme="light"] .panel.hero {
     grid-column: span 12;
   }
 
-  #experience {
-    grid-column: span 8;
-  }
-
+  /* Editorial sections read as full-width chapters */
+  #experience,
   #skills {
-    grid-column: span 4;
+    grid-column: span 12;
   }
 
   .bento-layout>.panel:not(#projects):not(#experience):not(#skills) {
@@ -1599,7 +1518,7 @@ html[data-theme="light"] .activity__year-btn.active {
 /* Anchor jumps land below the fixed CardNav instead of under it
    (Lenis uses its own offset; this covers reduced-motion / no-JS). */
 section[id],
-.proj2[id] {
+.case[id] {
   scroll-margin-top: 96px;
 }
 
@@ -1610,11 +1529,10 @@ section[id],
 }
 
 /* =========================================================
-   GLOBAL AURORA v2 — visible + lag-free
-   Two soft radial-gradient blobs drift with translate only (GPU).
-   No filter: blur and no scale — a blurred layer that scales has to
-   be re-rasterized every frame, across the whole screen. The gradient
-   already fades to transparent, so it looks the same without blur.
+   GLOBAL AURORA — two soft radial-gradient glows, static.
+   They used to drift (24–30s loop); the drift was barely visible but
+   kept the compositor and style system busy during every scroll, so
+   the glows now sit at their mid-drift positions.
    ========================================================= */
 .global-aurora {
   position: fixed;
@@ -1635,33 +1553,24 @@ section[id],
   height: 80vw;
   border-radius: 50%;
   opacity: 0.55;
-  will-change: transform;
 }
 .global-aurora::before {
-  top: -28vw;
-  left: -8vw;
+  top: -23vw;
+  left: -1vw;
   background: radial-gradient(circle at center, rgba(201, 168, 76, 0.5), transparent 70%);
-  animation: aurora-drift-1 24s ease-in-out infinite alternate;
 }
 .global-aurora::after {
-  top: 6vw;
-  right: -14vw;
+  top: 13vw;
+  right: -8vw;
   background: radial-gradient(circle at center, rgba(99, 102, 241, 0.38), transparent 70%);
-  animation: aurora-drift-2 30s ease-in-out infinite alternate;
-}
-@keyframes aurora-drift-1 {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(14vw, 10vw, 0); }
-}
-@keyframes aurora-drift-2 {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-12vw, 14vw, 0); }
 }
 
-/* Pause when the tab is hidden (useAuroraPause toggles .aurora-paused) */
-.global-aurora.aurora-paused::before,
-.global-aurora.aurora-paused::after {
-  animation-play-state: paused !important;
+/* Lenis puts .lenis-scrolling on <html> while scrolling. Content moving
+   under a resting cursor kept triggering :hover transitions on cards and
+   links every frame; ignoring the pointer for the length of the scroll
+   removes that work (hover comes back as soon as scrolling stops). */
+.lenis-scrolling .shell {
+  pointer-events: none;
 }
 
 /* Panels stay translucent so the aurora shows through (no backdrop blur —
@@ -1677,7 +1586,3 @@ html[data-theme="light"] .panel {
     rgba(255, 255, 255, 0.72);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .global-aurora::before,
-  .global-aurora::after { animation: none !important; }
-}

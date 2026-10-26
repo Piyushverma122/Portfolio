@@ -148,6 +148,7 @@ const ElasticMesh = ({
   ...rest
 }) => {
   const containerRef = useRef(null);
+  const wakeRef = useRef(null);
 
   const propsRef = useRef({});
   propsRef.current = {
@@ -172,13 +173,18 @@ const ElasticMesh = ({
     enabled
   };
 
+  // Props changed (e.g. theme colors) → redraw once even if the mesh is asleep.
+  useEffect(() => {
+    if (wakeRef.current) wakeRef.current();
+  });
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const renderer = new Renderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 2) });
+    const renderer = new Renderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 1.5) });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
@@ -293,6 +299,7 @@ const ElasticMesh = ({
       program.uniforms.uAspect.value = aspect;
       program.uniforms.uRes.value = [w, h];
       refreshBase();
+      if (wakeRef.current) wakeRef.current(); // setSize clears the canvas → draw again
     }
 
     const ro = new ResizeObserver(resize);
@@ -321,15 +328,18 @@ const ElasticMesh = ({
 
     function onMove(e) {
       toPlane(e.clientX, e.clientY);
+      wake();
       if (propsRef.current.interaction === 'hover') pointer.targetActive = true;
     }
     function onEnter() {
+      wake();
       if (propsRef.current.interaction === 'hover') pointer.targetActive = true;
     }
     function onLeave() {
       pointer.targetActive = false;
     }
     function onDown(e) {
+      wake();
       if (propsRef.current.interaction === 'drag') {
         toPlane(e.clientX, e.clientY);
         pointer.x = pointer.tx;
@@ -341,6 +351,7 @@ const ElasticMesh = ({
       if (propsRef.current.interaction === 'drag') pointer.targetActive = false;
     }
     function onTouch(e) {
+      wake();
       if (e.touches.length) {
         toPlane(e.touches[0].clientX, e.touches[0].clientY);
         pointer.targetActive = true;
@@ -514,8 +525,14 @@ const ElasticMesh = ({
           aOffset[o3 + 2] = pos[o3 + 2];
         }
       }
+      let motion = 0;
+      for (let k = 0; k < nodeCount * 3; k++) {
+        const m = Math.abs(vel[k]) + Math.abs(pos[k]);
+        if (m > motion) motion = m;
+      }
       geometry.attributes.aOffset.needsUpdate = true;
       geometry.attributes.aNormal.needsUpdate = true;
+      return motion;
     }
 
     let isVisible = true;
@@ -523,14 +540,30 @@ const ElasticMesh = ({
     if ('IntersectionObserver' in window) {
       io = new IntersectionObserver(([entry]) => {
         isVisible = entry.isIntersecting;
+        if (isVisible) wake();
       }, { threshold: 0 });
       io.observe(container);
     }
 
+    // PERF: the loop only runs while something moves. Once the mesh has
+    // settled and the pointer is gone it stops, and pointer/resize/visibility
+    // events wake it again — an idle card costs zero frames during scroll.
     let raf = 0;
-    function frame(now) {
+    let running = false;
+    let colorKey = '';
+    function wake() {
+      if (running || !isVisible) return;
+      running = true;
+      last = performance.now();
       raf = requestAnimationFrame(frame);
-      if (!isVisible) return;
+    }
+    wakeRef.current = wake;
+
+    function frame(now) {
+      if (!isVisible) {
+        running = false;
+        return;
+      }
 
       const p = propsRef.current;
 
@@ -539,13 +572,17 @@ const ElasticMesh = ({
       program.uniforms.uTilt.value = (p.tilt * Math.PI) / 180;
       program.uniforms.uFitX.value = p.fitX;
       program.uniforms.uFitY.value = p.fitY;
-      program.uniforms.uColor1.value = hexToRgb(p.color1);
-      program.uniforms.uColor2.value = hexToRgb(p.color2);
-      program.uniforms.uHighlight.value = hexToRgb(p.highlight);
+      const key = `${p.color1}|${p.color2}|${p.highlight}|${p.gridColor}`;
+      if (key !== colorKey) {
+        colorKey = key;
+        program.uniforms.uColor1.value = hexToRgb(p.color1);
+        program.uniforms.uColor2.value = hexToRgb(p.color2);
+        program.uniforms.uHighlight.value = hexToRgb(p.highlight);
+        program.uniforms.uGridColor.value = hexToRgb(p.gridColor);
+      }
       program.uniforms.uGrid.value = p.showGrid ? 1 : 0;
       program.uniforms.uGridDensity.value = p.gridDensity;
       program.uniforms.uGridOpacity.value = p.gridOpacity;
-      program.uniforms.uGridColor.value = hexToRgb(p.gridColor);
 
       let dt = (now - last) / 1000;
       last = now;
@@ -566,15 +603,23 @@ const ElasticMesh = ({
       }
       if (accTime > STEP) accTime = 0;
 
-      commit();
+      const motion = commit();
       renderer.render({ scene: mesh });
+
+      if (!pointer.targetActive && motion < 1e-4) {
+        running = false; // settled → sleep until the next event
+        return;
+      }
+      raf = requestAnimationFrame(frame);
     }
-    raf = requestAnimationFrame(frame);
 
     container.appendChild(gl.canvas);
+    wake();
 
     return () => {
       cancelAnimationFrame(raf);
+      running = false;
+      wakeRef.current = null;
       if (io) io.disconnect();
       ro.disconnect();
       container.removeEventListener('mousemove', onMove);

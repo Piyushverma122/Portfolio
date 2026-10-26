@@ -1,52 +1,107 @@
 /* =========================================================
-   SKILLS — violet theme, Sora/DM Sans (logos kept)
+   TOOLKIT — category label column + plain item list.
+   Icons sit in grayscale and take their brand color on hover,
+   so the section stays calm instead of a wall of colored chips.
    ========================================================= */
-.skills-theme {
-  --accent: #a78bfa;
-  --accent-soft: rgba(167, 139, 250, 0.12);
-  --accent-line: rgba(167, 139, 250, 0.35);
-  font-family: "DM Sans", system-ui, sans-serif;
+.kit {
+  margin: 0;
+  border-top: 1px solid var(--border);
 }
-.skills-theme .sec-label { color: var(--accent); margin: 0 0 1.5rem; }
-.skills-theme .sec-label::before { background: var(--accent); }
 
-.skill2-grid {
+.kit__row {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
+  grid-template-columns: minmax(140px, 180px) 1fr;
+  gap: 0.8rem clamp(1.5rem, 4vw, 3rem);
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.skill2-cell {
-  position: relative;
-  padding: 1.2rem 1.3rem;
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(167, 139, 250, 0.06), rgba(255, 255, 255, 0.01));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-left: 2px solid var(--accent-line);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.skill2-cell:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-}
-.skill2-title {
-  margin: 0 0 0.9rem;
-  font-family: "Sora", sans-serif;
-  font-weight: 600;
-  font-size: 1.02rem;
-  letter-spacing: -0.01em;
-  color: #fff;
-}
-
-.skill2-cell--edu .edu2-line {
-  margin: 0.55rem 0 0;
-  font-size: 0.92rem;
-  color: #e6e6e6;
-}
-.skill2-cell--edu .edu2-line:first-of-type { margin-top: 0; }
-.skill2-cell--edu .edu2-sub {
-  margin: 0.1rem 0 0;
+.kit__label {
+  padding-top: 0.15rem;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.72rem;
-  color: #8b8b93;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+.kit__items {
+  margin: 0;
+}
+.kit__items ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kit__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.kit__icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  object-fit: contain;
+  filter: grayscale(1) opacity(0.7);
+  transition: filter 0.2s ease;
+}
+.kit__icon--svg {
+  color: var(--text-mute);
+  filter: none;
+  transition: color 0.2s ease;
+}
+.kit__item:hover .kit__icon {
+  filter: none;
+}
+.kit__item:hover .kit__icon--svg {
+  color: var(--ink-gold);
+}
+
+/* White/black mono logos (GitHub, Flask, Expo) need inverting on dark */
+.kit__icon.logo-invert {
+  filter: grayscale(1) invert(1) opacity(0.7);
+}
+.kit__item:hover .kit__icon.logo-invert {
+  filter: invert(1);
+}
+html[data-theme="light"] .kit__icon.logo-invert {
+  filter: grayscale(1) opacity(0.7);
+}
+html[data-theme="light"] .kit__item:hover .kit__icon.logo-invert {
+  filter: none;
+}
+
+.kit__edu {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2rem;
+}
+.kit__edu-title {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--text);
+}
+.kit__edu-meta {
+  margin: 0.25rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .kit__row {
+    grid-template-columns: 1fr;
+  }
+  .kit__edu {
+    grid-template-columns: 1fr;
+  }
 }
