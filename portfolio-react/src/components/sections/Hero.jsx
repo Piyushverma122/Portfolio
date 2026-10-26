@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useScrollReveal } from "../../hooks/useScrollReveal.js";
 import DecryptedText from "../DecryptedText/DecryptedText.jsx";
 import ThemeToggle from "../ThemeToggle/ThemeToggle.jsx";
@@ -47,16 +48,6 @@ const SOCIALS = [
     ),
   },
   {
-    label: "X (Twitter)",
-    href: "https://x.com/",
-    external: true,
-    icon: (
-      <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
-  },
-  {
     label: "Resume",
     href: "https://drive.google.com/file/d/1hNzTaz5Vd_vHeZI0MRxZd1ruhw2KL4iG/view?usp=sharing",
     external: true,
@@ -75,6 +66,19 @@ const SOCIALS = [
 export default function Hero() {
   const ref = useScrollReveal();
 
+  // PERF: the hero runs several infinite CSS animations (quote shimmer,
+  // particles, badge shimmer, OTW ring). Pause them all once the hero has
+  // scrolled away so they stop costing style/paint work further down the page.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) return undefined;
+    const io = new IntersectionObserver(([entry]) => {
+      el.classList.toggle("is-offscreen", !entry.isIntersecting);
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [ref]);
+
   const onPfpError = (e) => {
     e.currentTarget.onerror = null;
     e.currentTarget.src = "https://picsum.photos/seed/piyush-verma-developer-portrait/500/500";
@@ -85,7 +89,7 @@ export default function Hero() {
       <div className="hero__banner">
         <div
           className="hero__banner-bg"
-          style={{ backgroundImage: "url('/assets/Banner.jpeg')" }}
+          style={{ backgroundImage: "url('/assets/Banner.webp')" }}
           aria-hidden="true"
         />
         <div className="hero__banner-glow" aria-hidden="true" />
@@ -158,7 +162,7 @@ export default function Hero() {
                   aria-label={s.label}
                   title={s.label}
                   target={s.external ? "_blank" : undefined}
-                  rel={s.external ? "noopener" : undefined}
+                  rel={s.external ? "noopener noreferrer" : undefined}
                 >
                   {s.icon}
                 </a>

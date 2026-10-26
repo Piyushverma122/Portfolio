@@ -34,7 +34,8 @@ void main() {
  * "Open for Opportunities" pill with the animated liquid-chrome WebGL bg.
  *
  * PERF (per the canvas-fix brief):
- *  - Capped to 30fps via a delta check (was an uncapped 60fps loop).
+ *  - Capped to 24fps via a delta check and rendered at 1x DPR — it's a tiny
+ *    pill, so extra frames/pixels were invisible but still cost GPU time.
  *  - Paused when the button scrolls off-screen (IntersectionObserver).
  *  - Paused when the tab is hidden (visibilitychange).
  *  - Honors prefers-reduced-motion (no loop at all).
@@ -94,7 +95,7 @@ function OpenToWorkButton() {
     const frequency = 3.0;
 
     // ----- 30fps throttling + visibility gating -----
-    const TARGET_FPS = 30;
+    const TARGET_FPS = 24;
     const FRAME_DURATION = 1000 / TARGET_FPS;
     let lastTime = 0;
     let rafId = 0;
@@ -102,7 +103,7 @@ function OpenToWorkButton() {
     let tabVisible = !document.hidden;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2); // clamp DPR → fewer pixels to shade
+      const dpr = 1; // tiny pill → 1x is visually identical, far fewer pixels to shade
       const w = Math.floor(canvas.clientWidth * dpr);
       const h = Math.floor(canvas.clientHeight * dpr);
       if (canvas.width !== w || canvas.height !== h) {
@@ -182,13 +183,14 @@ function OpenToWorkButton() {
 
   return (
     <span className="otw-wrap">
-      <button className="otw" type="button">
+      {/* Was a <button> with no action — now jumps to the contact section. */}
+      <a className="otw" href="#contact">
         <canvas className="otw__canvas" ref={canvasRef} />
         <span className="otw__content">
           <span className="otw__dot" />
           <span className="otw__label">Open for Opportunities</span>
         </span>
-      </button>
+      </a>
     </span>
   );
 }

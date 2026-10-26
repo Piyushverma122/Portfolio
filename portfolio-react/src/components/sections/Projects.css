@@ -99,10 +99,9 @@
   font-size: 0.68rem;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  background: rgba(10, 10, 12, 0.6);
+  background: rgba(10, 10, 12, 0.78); /* solid-ish instead of backdrop blur */
   border: 1px solid var(--accent-line);
   color: var(--accent);
-  backdrop-filter: blur(4px);
 }
 
 /* ---- Body ---- */

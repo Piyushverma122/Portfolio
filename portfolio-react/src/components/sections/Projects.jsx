@@ -75,6 +75,7 @@ function Projects() {
             className={`proj2${p.featured ? " proj2--featured" : ""}`}
             href={GH}
             key={p.name}
+            id={`proj-${p.name.toLowerCase().replace(/\s+/g, "-")}`}
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -16,7 +16,7 @@ function Contact() {
       <div
         className="contact2__bg"
         aria-hidden="true"
-        style={{ backgroundImage: "url('https://picsum.photos/seed/dark-developer-desk-workspace-night/1280/520')" }}
+        style={{ backgroundImage: "url('/assets/Banner.webp')" }}
       />
       <div className="contact2__content">
         <p className="sec-label">CONTACT</p>
@@ -30,7 +30,7 @@ function Contact() {
               className="contact2__pill"
               href={l.href}
               target={l.external ? "_blank" : undefined}
-              rel={l.external ? "noopener" : undefined}
+              rel={l.external ? "noopener noreferrer" : undefined}
             >
               {l.label} <span>↗</span>
             </a>

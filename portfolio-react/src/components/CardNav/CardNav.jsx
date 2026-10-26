@@ -19,7 +19,6 @@ const ArrowIcon = () => (
 const NAV_CARDS = [
   {
     label: "Navigate",
-    bg: "#1B1722",
     links: [
       { label: "Projects", href: "#projects", ariaLabel: "Go to Projects" },
       { label: "Experience", href: "#experience", ariaLabel: "Go to Experience" },
@@ -28,16 +27,14 @@ const NAV_CARDS = [
   },
   {
     label: "Featured Work",
-    bg: "#221b2a",
     links: [
-      { label: "Harihar Paathshaala", href: "#projects", ariaLabel: "Harihar Paathshaala" },
-      { label: "Green Paalna", href: "#projects", ariaLabel: "Green Paalna" },
-      { label: "Har Ghar Munga", href: "#projects", ariaLabel: "Har Ghar Munga" },
+      { label: "Harihar Paathshaala", href: "#proj-harihar-paathshaala", ariaLabel: "Harihar Paathshaala" },
+      { label: "Green Paalna", href: "#proj-green-paalna", ariaLabel: "Green Paalna" },
+      { label: "Har Ghar Munga", href: "#proj-har-ghar-munga", ariaLabel: "Har Ghar Munga" },
     ],
   },
   {
     label: "Connect",
-    bg: "#2F293A",
     links: [
       { label: "Email", href: "mailto:rajruchi2013@gmail.com", ariaLabel: "Email Piyush" },
       { label: "GitHub", href: "https://github.com/Piyushverma122", external: true, ariaLabel: "GitHub" },
@@ -160,11 +157,8 @@ function CardNav() {
 
   return (
     <div className="card-nav-container">
-      <nav
-        ref={navRef}
-        className={`card-nav ${isExpanded ? "open" : ""}`}
-        style={{ backgroundColor: "#14141a" }}
-      >
+      {/* Colors live in CardNav.css (not inline) so light mode can theme them. */}
+      <nav ref={navRef} className={`card-nav ${isExpanded ? "open" : ""}`}>
         <div className="card-nav-top">
           <div
             className={`hamburger-menu ${isExpanded ? "open" : ""}`}
@@ -172,7 +166,6 @@ function CardNav() {
             aria-label={isExpanded ? "Close menu" : "Open menu"}
             aria-expanded={isExpanded}
             tabIndex={0}
-            style={{ color: "#f4f4f2" }}
             onClick={toggle}
             onKeyDown={onHamburgerKey}
           >
@@ -188,14 +181,19 @@ function CardNav() {
             className="card-nav-cta-button"
             href="https://drive.google.com/file/d/1hNzTaz5Vd_vHeZI0MRxZd1ruhw2KL4iG/view?usp=sharing"
             target="_blank"
-            rel="noopener"
-            style={{ backgroundColor: "#e3b341", color: "#1a1305" }}
+            rel="noopener noreferrer"
           >
             Resume
           </a>
         </div>
 
-        <div className="card-nav-content" ref={contentRef} aria-hidden={!isExpanded}>
+        {/* inert while collapsed: hidden links must not be reachable with Tab */}
+        <div
+          className="card-nav-content"
+          ref={contentRef}
+          aria-hidden={!isExpanded}
+          inert={isExpanded ? undefined : ""}
+        >
           {NAV_CARDS.map((card) => {
             const idx = cardIndex;
             cardIndex += 1;
@@ -206,7 +204,6 @@ function CardNav() {
                 ref={(el) => {
                   if (el) cardsRef.current[idx] = el;
                 }}
-                style={{ backgroundColor: card.bg, color: "#fff" }}
               >
                 <div className="nav-card-label">{card.label}</div>
                 <div className="nav-card-links">
@@ -217,7 +214,7 @@ function CardNav() {
                       href={lnk.href}
                       aria-label={lnk.ariaLabel}
                       target={lnk.external ? "_blank" : undefined}
-                      rel={lnk.external ? "noopener" : undefined}
+                      rel={lnk.external ? "noopener noreferrer" : undefined}
                       onClick={() => {
                         if (isExpanded) close();
                       }}

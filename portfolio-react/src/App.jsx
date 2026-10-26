@@ -19,6 +19,10 @@ export default function App() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return undefined;
 
+    // WHY no `prevent`: excluding the activity graph handed vertical wheel
+    // events back to native scrolling mid-page, so the scroll feel jumped
+    // there. Lenis already ignores horizontal deltas, so the graph's own
+    // horizontal overflow still scrolls natively.
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

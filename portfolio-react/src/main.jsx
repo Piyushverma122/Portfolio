@@ -4,7 +4,6 @@ import App from "./App.jsx";
 
 import "./styles/globals.css";
 import "./components/CardNav/CardNav.css";
-import "./components/ChromaGrid/ChromaGrid.css";
 import "./components/DecryptedText/DecryptedText.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

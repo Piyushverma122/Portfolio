@@ -81,7 +81,7 @@ function Skills() {
           <div className="tags">
             {LANGUAGES.map((s) => (
               <span className="skill-tag" key={s.name} style={skillStyle(s)}>
-                <img className="skill-logo" src={s.logo} alt="" />
+                <img className="skill-logo" src={s.logo} alt="" width="14" height="14" loading="lazy" decoding="async" />
                 {s.name}
               </span>
             ))}
@@ -93,7 +93,15 @@ function Skills() {
           <div className="tags">
             {TOOLS.map((s) => (
               <span className="skill-tag" key={s.name} style={skillStyle(s)}>
-                <img className={`skill-logo${s.invert ? " logo-invert" : ""}`} src={s.logo} alt="" />
+                <img
+                  className={`skill-logo${s.invert ? " logo-invert" : ""}`}
+                  src={s.logo}
+                  alt=""
+                  width="14"
+                  height="14"
+                  loading="lazy"
+                  decoding="async"
+                />
                 {s.name}
               </span>
             ))}
